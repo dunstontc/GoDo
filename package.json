@@ -9,6 +9,7 @@
   "author": "Clay Dunston <dunstontc@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "jquery": "^3.3.1",
     "material-design-icons": "^3.0.1",
     "materialize-css": "^1.0.0-rc.2",
     "vue": "^2.5.17"
