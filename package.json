@@ -1,0 +1,16 @@
+{
+  "name": "todo",
+  "version": "0.0.0",
+  "description": "Goland todo app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'lul'"
+  },
+  "author": "Clay Dunston <dunstontc@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "material-design-icons": "^3.0.1",
+    "materialize-css": "^1.0.0-rc.2",
+    "vue": "^2.5.17"
+  }
+}

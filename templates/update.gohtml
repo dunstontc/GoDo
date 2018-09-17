@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="public/css/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <style>
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    h1 {text-align: center;}
+    main {flex: 1 0 auto;}
+    span.done {color: #00A29C;}
+
+  </style>
+  <title>Todo App</title>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <h1>Update Todo</h1>
+    <br/>
+
+    <form method="POST" action="/todos/update">
+      <div class="input-field">
+        <label for="description">new description</label>
+        <input type="text" name="description">
+      </div>
+      <button type="submit" name="date" value="{{.Date}}" class="btn-floating btn-large waves-effect waves-light cyan">
+        <i class="material-icons">add</i></a>
+      </button>
+    </form>
+
+    <br/>
+
+  </main>
+
+  <footer class="page-footer cyan lighten-2">
+    <div class="footer-copyright cyan">
+      <div class="container">© {{.Year}} Clay Dunston</div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

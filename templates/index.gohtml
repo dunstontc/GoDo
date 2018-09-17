@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="public/css/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <title>Todo App</title>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <h1>Todo</h1>
+    <br/>
+
+    <form method="POST" action="/todos/new">
+      <div class="input-field">
+        <label for="description">New Todo</label>
+        <input type="text" id="description" name="description">
+      </div>
+      <button type="submit" class="btn-floating btn-large waves-effect waves-light cyan">
+        <i class="material-icons">add</i></a>
+      </button>
+    </form>
+
+    <br/>
+
+    <h3>Todo:</h3>
+    <ul class="collection">
+      {{ with .Todos }}
+        {{ range . }}
+          {{if not .Done}}
+            <li class="collection-item">
+              <span>{{.Description}}</span>
+              (still due)
+              <form method="POST" action="/todos/delete" class="secondary-content cyan-text">
+                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                  <i class="material-icons">delete</i>
+                </button>
+              </form>
+              <form method="POST" action="/todos/update" class="secondary-content cyan-text">
+                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                  <i class="material-icons">edit</i>
+                </button>
+              </form>
+              <form  method="POST" action="/todos/toggle" class="secondary-content cyan-text">
+                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                  <i class="material-icons">check</i>
+                </button>
+              </form>
+            </li>
+          {{end}}
+        {{ end }}
+      {{ end }}
+    </ul>
+
+    <h3>Done:</h3>
+    <ul class="collection">
+      {{ with .Todos }}
+        {{ range . }}
+          {{if .Done}}
+            <li class="collection-item">
+              <span class="done">{{.Description}}</span>
+              <form method="POST" action="/todos/delete" class="secondary-content cyan-text">
+                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                  <i class="material-icons">delete</i>
+                </button>
+              </form>
+              <form method="POST" action="/todos/update" class="secondary-content cyan-text">
+                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                  <i class="material-icons">edit</i>
+                </button>
+              </form>
+              <form class="secondary-content cyan-text"><i class="material-icons">edit</i></form>
+              <form  method="POST" action="/todos/toggle" class="secondary-content cyan-text">
+                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                  <i class="material-icons">clear</i>
+                </button>
+              </form>
+            </li>
+          {{end}}
+        {{ end }}
+      {{ end }}
+    </ul>
+
+  </main>
+
+  <footer class="page-footer cyan lighten-2">
+    <div class="footer-copyright cyan">
+      <div class="container">© {{.Year}} Clay Dunston</div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
