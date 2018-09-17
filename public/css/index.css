@@ -1,5 +1,4 @@
 /* body {background-color: #00ADD8;} */
-h1 {text-align: center;}
 
 body {
   display: flex;
@@ -10,6 +9,8 @@ body {
 main {
   flex: 1 0 auto;
 }
+
+h1 {text-align: center;}
 
 span.done {
   color: #00A29C;

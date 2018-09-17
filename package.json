@@ -1,10 +1,10 @@
 {
   "name": "todo",
   "version": "0.0.0",
-  "description": "Goland todo app.",
+  "description": "Go todo app.",
   "main": "index.js",
   "scripts": {
-    "test": "echo 'lul'"
+    "test": "echo 'go!'"
   },
   "author": "Clay Dunston <dunstontc@gmail.com>",
   "license": "MIT",

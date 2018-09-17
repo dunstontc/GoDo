@@ -33,7 +33,7 @@
     <ul class="collection">
       {{ with .Todos }}
         {{ range . }}
-          {{if not .Done}}
+          {{ if not .Done }}
             <li class="collection-item">
               <span>{{.Description}}</span>
               (still due)
@@ -53,7 +53,7 @@
                 </button>
               </form>
             </li>
-          {{end}}
+          {{ end }}
         {{ end }}
       {{ end }}
     </ul>
@@ -62,7 +62,7 @@
     <ul class="collection">
       {{ with .Todos }}
         {{ range . }}
-          {{if .Done}}
+          {{ if .Done }}
             <li class="collection-item">
               <span class="done">{{.Description}}</span>
               <form method="POST" action="/todos/delete" class="secondary-content cyan-text">
@@ -75,14 +75,13 @@
                   <i class="material-icons">edit</i>
                 </button>
               </form>
-              <form class="secondary-content cyan-text"><i class="material-icons">edit</i></form>
               <form  method="POST" action="/todos/toggle" class="secondary-content cyan-text">
                 <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
                   <i class="material-icons">clear</i>
                 </button>
               </form>
             </li>
-          {{end}}
+          {{ end }}
         {{ end }}
       {{ end }}
     </ul>
