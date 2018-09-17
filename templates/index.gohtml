@@ -29,63 +29,69 @@
 
     <br/>
 
-    <h3>Todo:</h3>
-    <ul class="collection">
-      {{ with .Todos }}
-        {{ range . }}
-          {{ if not .Done }}
-            <li class="collection-item">
-              <span>{{.Description}}</span>
-              (still due)
-              <form method="POST" action="/todos/delete" class="secondary-content cyan-text">
-                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
-                  <i class="material-icons">delete</i>
-                </button>
-              </form>
-              <form method="POST" action="/todos/update" class="secondary-content cyan-text">
-                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
-                  <i class="material-icons">edit</i>
-                </button>
-              </form>
-              <form  method="POST" action="/todos/toggle" class="secondary-content cyan-text">
-                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
-                  <i class="material-icons">check</i>
-                </button>
-              </form>
-            </li>
+    <div class="row">
+      <div class="col s6">
+        <h3>Todo:</h3>
+        <ul class="collection">
+          {{ with .Todos }}
+            {{ range . }}
+              {{ if not .Done }}
+                <li class="collection-item">
+                  <span>{{.Description}}</span>
+                  (still due)
+                  <form method="POST" action="/todos/delete" class="secondary-content cyan-text">
+                    <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                      <i class="material-icons">delete</i>
+                    </button>
+                  </form>
+                  <form method="POST" action="/todos/update" class="secondary-content cyan-text">
+                    <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                      <i class="material-icons">edit</i>
+                    </button>
+                  </form>
+                  <form  method="POST" action="/todos/toggle" class="secondary-content cyan-text">
+                    <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                      <i class="material-icons">check</i>
+                    </button>
+                  </form>
+                </li>
+              {{ end }}
+            {{ end }}
           {{ end }}
-        {{ end }}
-      {{ end }}
-    </ul>
+        </ul>
+      </div>
 
-    <h3>Done:</h3>
-    <ul class="collection">
-      {{ with .Todos }}
-        {{ range . }}
-          {{ if .Done }}
-            <li class="collection-item">
-              <span class="done">{{.Description}}</span>
-              <form method="POST" action="/todos/delete" class="secondary-content cyan-text">
-                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
-                  <i class="material-icons">delete</i>
-                </button>
-              </form>
-              <form method="POST" action="/todos/update" class="secondary-content cyan-text">
-                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
-                  <i class="material-icons">edit</i>
-                </button>
-              </form>
-              <form  method="POST" action="/todos/toggle" class="secondary-content cyan-text">
-                <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
-                  <i class="material-icons">clear</i>
-                </button>
-              </form>
-            </li>
+      <div class="col s6">
+        <h3>Done:</h3>
+        <ul class="collection">
+          {{ with .Todos }}
+            {{ range . }}
+              {{ if .Done }}
+                <li class="collection-item">
+                  <span class="done">{{.Description}}</span>
+                  <form method="POST" action="/todos/delete" class="secondary-content cyan-text">
+                    <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                      <i class="material-icons">delete</i>
+                    </button>
+                  </form>
+                  <form method="POST" action="/todos/update" class="secondary-content cyan-text">
+                    <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                      <i class="material-icons">edit</i>
+                    </button>
+                  </form>
+                  <form  method="POST" action="/todos/toggle" class="secondary-content cyan-text">
+                    <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                      <i class="material-icons">clear</i>
+                    </button>
+                  </form>
+                </li>
+              {{ end }}
+            {{ end }}
           {{ end }}
-        {{ end }}
-      {{ end }}
-    </ul>
+        </ul>
+      </div>
 
+    </div>
   </main>
 
   <footer class="page-footer cyan lighten-2">

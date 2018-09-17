@@ -105,14 +105,13 @@ func faviconHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func init() {
-	// tpl = template.Must(template.ParseFiles("templates/index.gohtml"))
 	tpl = template.Must(template.ParseGlob("templates/*"))
 }
 
 func main() {
 
-	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public/"))))
 	http.HandleFunc("/favicon.ico", faviconHandler)
+	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public/"))))
 
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/todos/new", createTodo)
@@ -121,7 +120,7 @@ func main() {
 	http.HandleFunc("/todos/delete", deleteTodo)
 
 	log.Println("Listening on localhost: " + getPort())
-	err := http.ListenAndServe(getPort(), nil) // setting listening port
+	err := http.ListenAndServe(getPort(), nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
