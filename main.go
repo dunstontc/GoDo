@@ -101,7 +101,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func faviconHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "public/go.ico")
+	http.ServeFile(w, r, "public/favicon.ico")
 }
 
 func init() {
@@ -116,7 +116,7 @@ func main() {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/todos/new", createTodo)
 	http.HandleFunc("/todos/toggle", toggleTodo)
-	http.HandleFunc("/todos/update", updateTodo)
+	http.HandleFunc("/todos/update/", updateTodo)
 	http.HandleFunc("/todos/delete", deleteTodo)
 
 	log.Println("Listening on localhost: " + getPort())
