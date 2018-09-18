@@ -27,7 +27,7 @@ func getTimestamp() string {
 func createTodo(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		r.ParseForm()
-		desc := r.Form["description"][0]
+		desc := r.FormValue("description")
 
 		if len(desc) > 0 {
 			theTodos = append(theTodos, Todo{desc, getTimestamp(), false})
@@ -37,23 +37,13 @@ func createTodo(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", 302)
 }
 
-func deleteTodo(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost {
-		r.ParseForm()
-
-		date := r.Form["date"][0]
-
-		theTodos = Drop(date, theTodos)
-	}
-	http.Redirect(w, r, "/", 302)
-}
-
 func toggleTodo(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		r.ParseForm()
 
-		date := r.Form["date"][0]
-		index := getIndex(date, theTodos)
+		date := r.FormValue("date")
+
+		index := getIndex(theTodos, date)
 
 		theTodos[index].toggle()
 	}
@@ -64,27 +54,28 @@ func updateTodo(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		r.ParseForm()
 
-		date := r.Form["date"][0]
-		description := r.Form["description"][0]
+		date := r.FormValue("date")
+		desc := r.FormValue("description")
 
-		index := getIndex(date, theTodos)
-		theTodos[index].update(description)
+		log.Printf("date: %s\n", date)
+		log.Printf("description: %s\n", desc)
 
-		http.Redirect(w, r, "/", 302)
+		index := getIndex(theTodos, date)
+		theTodos[index].update(desc)
 
-	} else {
-		dat := struct {
-			Todos []Todo
-			Year  int
-		}{
-			theTodos,
-			time.Now().Year(),
-		}
-
-		log.Println(theTodos)
-		tpl.ExecuteTemplate(w, "update.gohtml", dat)
 	}
+	http.Redirect(w, r, "/", 302)
+}
 
+func deleteTodo(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		r.ParseForm()
+
+		date := r.FormValue("date")
+
+		theTodos = Drop(theTodos, date)
+	}
+	http.Redirect(w, r, "/", 302)
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
@@ -96,7 +87,6 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		time.Now().Year(),
 	}
 
-	log.Println(theTodos)
 	tpl.ExecuteTemplate(w, "index.gohtml", dat)
 }
 
@@ -116,7 +106,7 @@ func main() {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/todos/new", createTodo)
 	http.HandleFunc("/todos/toggle", toggleTodo)
-	http.HandleFunc("/todos/update/", updateTodo)
+	http.HandleFunc("/todos/update", updateTodo)
 	http.HandleFunc("/todos/delete", deleteTodo)
 
 	log.Println("Listening on localhost: " + getPort())

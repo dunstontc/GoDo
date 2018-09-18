@@ -40,35 +40,44 @@
             {{ range . }}
               {{ if not .Done }}
                 <li class="collection-item">
+
                   <span>{{.Description}}</span>
-                  (still due)
+
                   <form method="POST" action="/todos/delete" class="secondary-content cyan-text">
                     <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
                       <i class="material-icons">delete</i>
                     </button>
                   </form>
+
                   <div class="secondary-content cyan-text">
-                    <button data-target="modal1" class="modal-trigger btn-small btn-flat">
+                    <button data-target="{{.Date}}" class="modal-trigger btn-small btn-flat">
                       <i class="material-icons">edit</i>
                     </button>
                   </div>
-                  <form  method="POST" action="/todos/toggle" class="secondary-content cyan-text">
-                    <a name="date" type="button" value="{{.Date}}" class="btn-small btn-flat">
-                      <i class="material-icons">check</i>
-                    </a>
-                  </form>
-                </li>
 
-                <!-- Modal Structure -->
-                <div id="modal1" class="modal">
-                  <div class="modal-content">
-                    <h4>Modal Header</h4>
-                    <p>A bunch of text</p>
-                  </div>
-                  <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-                  </div>
-                </div>
+                  <form  method="POST" action="/todos/toggle" class="secondary-content cyan-text">
+                    <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
+                      <i class="material-icons">check</i>
+                    </button>
+                  </form>
+
+                  <form id="{{.Date}}" method="POST" action="/todos/update" class="modal">
+                    <div class="modal-content">
+                      <h4>Update</h4>
+                      <p>{{.Description}}</p>
+                      <div class="input-field">
+                        <label for="description">New Todo</label>
+                        <input type="text" id="description" name="description">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button name="date" type="submit" value="{{.Date}}" class="btn waves-effect modal-close">
+                        Update
+                      </button>
+                    </div>
+                  </form>
+
+                </li>
               {{ end }}
             {{ end }}
           {{ end }}
@@ -82,38 +91,28 @@
             {{ range . }}
               {{ if .Done }}
                 <li class="collection-item">
+
                   <span class="done">{{.Description}}</span>
+
                   <form method="POST" action="/todos/delete" class="secondary-content cyan-text">
                     <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
                       <i class="material-icons">delete</i>
                     </button>
                   </form>
+
                   <form method="POST" action="/todos/update/{{.Date}}" class="secondary-content cyan-text">
                     <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
                       <i class="material-icons">edit</i>
                     </button>
                   </form>
+
                   <form  method="POST" action="/todos/toggle" class="secondary-content cyan-text">
                     <button name="date" type="submit" value="{{.Date}}" class="btn-small btn-flat">
                       <i class="material-icons">clear</i>
                     </button>
                   </form>
+
                 </li>
-
-                {{/* <!-- Modal Trigger -->
-                <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Modal</a>
-
-                <!-- Modal Structure -->
-                <div id="modal2" class="modal">
-                  <div class="modal-content">
-                    <h4>Modal Header</h4>
-                    <p>A bunch of text</p>
-                  </div>
-                  <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-                  </div>
-                </div> */}}
-
               {{ end }}
             {{ end }}
           {{ end }}

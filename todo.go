@@ -21,15 +21,22 @@ func (t *Todo) update(description string) {
 type Todos []Todo
 
 // Toggle the `Done` attribute of a Todo.
-func Toggle(date string, tds Todos) {
-	index := getIndex(date, tds)
+func Toggle(tds Todos, date string) {
+	index := getIndex(tds, date)
 	td := tds[index]
 	td.toggle()
 }
 
+// // Update the `Description` attribute of a Todo.
+// func Update(tds Todos, date string, desc string) {
+// 	index := getIndex(tds, date)
+// 	td := tds[index]
+// 	td.update(desc)
+// }
+
 // Drop a todo from Todos.
 // This is a poor way to go about this. Needs much improvement.
-func Drop(date string, tds Todos) Todos {
+func Drop(tds Todos, date string) Todos {
 	var result Todos
 	for _, v := range tds {
 		if v.Date != date {
@@ -47,7 +54,8 @@ func Drop(date string, tds Todos) Todos {
 // 	return append(tds[:below], tds[above:]...)
 // }
 
-func getIndex(date string, todos Todos) int {
+// getIndex returns a `todo`'s position in a `Todos` slice.
+func getIndex(todos Todos, date string) int {
 	var res int
 	for i, todo := range todos {
 		if todo.Date == date {
