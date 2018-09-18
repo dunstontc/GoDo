@@ -20,10 +20,6 @@ func getPort() string {
 	return ":" + port
 }
 
-func getTimestamp() string {
-	return time.Now().Format(time.RFC3339)
-}
-
 func createTodo(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		r.ParseForm()
@@ -31,7 +27,11 @@ func createTodo(w http.ResponseWriter, r *http.Request) {
 		desc := r.FormValue("description")
 
 		if len(desc) > 0 {
-			theTodos = append(theTodos, Todo{desc, getTimestamp(), false})
+			theTodos = append(theTodos, Todo{
+				desc,
+				time.Now().Format(time.RFC3339),
+				false,
+			})
 		}
 	}
 	http.Redirect(w, r, "/", 302)
