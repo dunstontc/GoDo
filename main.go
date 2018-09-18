@@ -27,13 +27,13 @@ func getTimestamp() string {
 func createTodo(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		r.ParseForm()
+
 		desc := r.FormValue("description")
 
 		if len(desc) > 0 {
 			theTodos = append(theTodos, Todo{desc, getTimestamp(), false})
 		}
 	}
-
 	http.Redirect(w, r, "/", 302)
 }
 
@@ -42,7 +42,6 @@ func toggleTodo(w http.ResponseWriter, r *http.Request) {
 		r.ParseForm()
 
 		date := r.FormValue("date")
-
 		index := getIndex(theTodos, date)
 
 		theTodos[index].toggle()
@@ -57,9 +56,6 @@ func updateTodo(w http.ResponseWriter, r *http.Request) {
 		date := r.FormValue("date")
 		desc := r.FormValue("description")
 
-		log.Printf("date: %s\n", date)
-		log.Printf("description: %s\n", desc)
-
 		index := getIndex(theTodos, date)
 		theTodos[index].update(desc)
 
@@ -73,7 +69,7 @@ func deleteTodo(w http.ResponseWriter, r *http.Request) {
 
 		date := r.FormValue("date")
 
-		theTodos = Drop(theTodos, date)
+		theTodos = ShortDrop(theTodos, date)
 	}
 	http.Redirect(w, r, "/", 302)
 }
@@ -82,10 +78,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	dat := struct {
 		Todos []Todo
 		Year  int
-	}{
-		theTodos,
-		time.Now().Year(),
-	}
+	}{theTodos, time.Now().Year()}
 
 	tpl.ExecuteTemplate(w, "index.gohtml", dat)
 }
