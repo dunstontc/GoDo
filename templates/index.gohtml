@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="public/css/materialize.css">
   <link rel="stylesheet" href="public/css/index.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="public/js/materialize.js"></script>
   <script src="public/js/jquery.js"></script>
   <script src="public/js/index.js"></script>
   <title>Todo App</title>
@@ -64,10 +64,9 @@
                   <form id="{{.Date}}" method="POST" action="/todos/update" class="modal">
                     <div class="modal-content">
                       <h4>Update</h4>
-                      <p>{{.Description}}</p>
                       <div class="input-field">
-                        <label for="description">New Todo</label>
-                        <input type="text" id="description" name="description">
+                        <label for="description">New Value</label>
+                        <input type="text" id="description" name="description" value="{{.Description}}">
                       </div>
                     </div>
                     <div class="modal-footer">
